@@ -243,13 +243,9 @@ void videoDecompressionOutputCallback(void * CM_NULLABLE decompressionOutputRefC
     int type = (frame[4] & 0x1F);
     
     // 将NALU的开始码转为4字节大端NALU的长度信息
-    uint32_t naluSize = size - 4;
-    uint8_t *pNaluSize = (uint8_t *)(&naluSize);
     CVPixelBufferRef pixelBuffer = NULL;
-    frame[0] = *(pNaluSize + 3);
-    frame[1] = *(pNaluSize + 2);
-    frame[2] = *(pNaluSize + 1);
-    frame[3] = *(pNaluSize);
+    uint32_t naluSize = CFSwapInt32HostToBig(size - 4);
+    memcpy(frame, &naluSize, sizeof(uint32_t));
     
     //第一次解析时: 初始化解码器initDecoder
     /*

@@ -164,7 +164,7 @@
      [_aacHandle writeData:aacData];
 
     //- 直接解码
-//    [_audioDecoder decodeAudioAACData:aacData];
+    [_audioDecoder decodeAudioAACData:aacData];
     
 }
 
@@ -180,8 +180,8 @@
     [_h264Handle writeData:pps];
 
     //- 直接解码
-//    [_videoDecoder decodeNaluData:sps];
-//    [_videoDecoder decodeNaluData:pps];
+    [_videoDecoder decodeNaluData:sps];
+    [_videoDecoder decodeNaluData:pps];
     
 }
 //h264编码回调 （数据）
@@ -191,7 +191,7 @@
     [_h264Handle writeData:h264Data];
     
     // - 直接解码
-//    [_videoDecoder decodeNaluData:h264Data];
+    [_videoDecoder decodeNaluData:h264Data];
 }
 
 //h264解码回调
