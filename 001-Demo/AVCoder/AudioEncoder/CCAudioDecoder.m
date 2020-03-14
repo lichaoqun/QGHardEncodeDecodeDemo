@@ -109,7 +109,7 @@ static OSStatus AudioDecoderConverterComplexInputDataProc(  AudioConverterRef in
         AudioStreamPacketDescription outputPacketDesc = {0};
         
         //配置填充函数，获取输出数据
-        OSStatus status = AudioConverterFillComplexBuffer(_audioConverter, &AudioDecoderConverterComplexInputDataProc, &userData, &pcmDataPacketSize, &outAudioBufferList, &outputPacketDesc);
+        OSStatus status = AudioConverterFillComplexBuffer(_audioConverter, AudioDecoderConverterComplexInputDataProc, &userData, &pcmDataPacketSize, &outAudioBufferList, &outputPacketDesc);
         if (status != noErr) {
             NSLog(@"Error: AAC Decoder error, status=%d",(int)status);
             return;

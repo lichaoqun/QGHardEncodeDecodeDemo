@@ -141,21 +141,23 @@ static OSStatus aacEncodeInputDataProc(AudioConverterRef inAudioConverter, UInt3
         if (status == noErr) {
             //获取数据
             NSData *rawAAC = [NSData dataWithBytes: outAudioBufferList.mBuffers[0].mData length:outAudioBufferList.mBuffers[0].mDataByteSize];
+            // - 可以直接回调解码
+            dispatch_async(_callbackQueue, ^{
+                [_delegate audioEncodeCallback:rawAAC];
+            });
+
+            //添加ADTS头，想要获取裸流时，请忽略添加ADTS头，写入文件时，必须添加, 如果是直接回调解码, 就不可以添加 ADTS 头, 否则会报错.
+//            NSData *adtsHeader = [self adtsDataForPacketLength:rawAAC.length];
+//            NSMutableData *fullData = [NSMutableData dataWithCapacity:adtsHeader.length + rawAAC.length];;
+//            [fullData appendData:adtsHeader];
+//            [fullData appendData:rawAAC];
+//            //将数据传递到回调队列中
+//            dispatch_async(_callbackQueue, ^{
+//                [_delegate audioEncodeCallback:fullData];
+//            });
             //释放pcmBuffer
             free(pcmBuffer);
-//            dispatch_async(_callbackQueue, ^{
-//                [_delegate audioEncodeCallback:rawAAC];
-//            });
 
-            //添加ADTS头，想要获取裸流时，请忽略添加ADTS头，写入文件时，必须添加
-            NSData *adtsHeader = [self adtsDataForPacketLength:rawAAC.length];
-            NSMutableData *fullData = [NSMutableData dataWithCapacity:adtsHeader.length + rawAAC.length];;
-            [fullData appendData:adtsHeader];
-            [fullData appendData:rawAAC];
-            //将数据传递到回调队列中
-            dispatch_async(_callbackQueue, ^{
-                [_delegate audioEncodeCallback:fullData];
-            });
         } else {
             error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
         }

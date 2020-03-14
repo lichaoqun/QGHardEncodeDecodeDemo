@@ -17,7 +17,7 @@
 #import "CCVideoEncoder.h"
 #import "CCVideoDecoder.h"
 #import "AAPLEAGLLayer.h"
-@interface ViewController ()<CCSystemCaptureDelegate,CCVideoEncoderDelegate, CCVideoDecoderDelegate>
+@interface ViewController ()<CCSystemCaptureDelegate,CCVideoEncoderDelegate, CCVideoDecoderDelegate, CCAudioDecoderDelegate>
 
 @property (nonatomic, strong) CCSystemCapture *capture;
 
@@ -168,6 +168,9 @@
     
 }
 
+-(void)audioDecodeCallback:(NSData *)pcmData{
+    [_pcmPlayer playPCMData:pcmData];
+}
 
 
 #pragma mark--CCVideoEncoder/Decoder Delegate
