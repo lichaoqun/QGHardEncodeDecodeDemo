@@ -78,7 +78,7 @@ void videoDecompressionOutputCallback(void * CM_NULLABLE decompressionOutputRefC
     int naluHeaderLen = 4;
     
     /**
-     根据sps pps设置解码参数
+     根据sps pps设置解码参数, 这种适用于Annex-B格式, 当格式为AVCC时候, 使用 CMVideoFormatDescriptionCreate 创建解码器描述
      param kCFAllocatorDefault 分配器
      param 2 参数个数
      param parameterSetPointers 参数集指针
@@ -87,6 +87,7 @@ void videoDecompressionOutputCallback(void * CM_NULLABLE decompressionOutputRefC
      param _decodeDesc 解码器描述
      return 状态
      */
+    
     OSStatus status = CMVideoFormatDescriptionCreateFromH264ParameterSets(kCFAllocatorDefault, 2, parameterSetPointers, parameterSetSizes, naluHeaderLen, &_decodeDesc);
     if (status != noErr) {
         NSLog(@"Video hard DecodeSession create H264ParameterSets(sps, pps) failed status= %d", (int)status);
@@ -244,8 +245,9 @@ void videoDecompressionOutputCallback(void * CM_NULLABLE decompressionOutputRefC
     
     // 将NALU的开始码转为4字节大端NALU的长度信息
     CVPixelBufferRef pixelBuffer = NULL;
-    uint32_t naluSize = CFSwapInt32HostToBig(size - 4);
-    memcpy(frame, &naluSize, sizeof(uint32_t));
+    uint32_t naluSize = size - 4;
+    uint32_t newSize = CFSwapInt32HostToBig(naluSize);
+    memcpy(frame, &newSize, sizeof(uint32_t));
     
     //第一次解析时: 初始化解码器initDecoder
     /*

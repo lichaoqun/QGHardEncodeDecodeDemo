@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "02D4A440-0CAD-4A44-A02A-3862E6C0D1A5"
+            uuid = "03E1C850-E838-4804-84BF-55DBA57D7E8E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "001-Demo/AVCoder/VideoEncoder/CCVideoDecoder.m"
+            filePath = "001-Demo/AVPlayer/VideoPlayer/AAPLEAGLLayer.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
-            landmarkName = "-decodeNaluData:size:"
+            startingLineNumber = "381"
+            endingLineNumber = "381"
+            landmarkName = "-displayPixelBuffer:width:height:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7168B5B1-66F0-4C57-A5A3-05C6BC629503"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "001-Demo/AVPlayer/VideoPlayer/AAPLEAGLLayer.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "364"
+            endingLineNumber = "364"
+            landmarkName = "-displayPixelBuffer:width:height:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
