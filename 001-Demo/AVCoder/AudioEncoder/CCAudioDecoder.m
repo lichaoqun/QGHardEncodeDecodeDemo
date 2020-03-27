@@ -89,7 +89,7 @@ static OSStatus AudioDecoderConverterComplexInputDataProc(  AudioConverterRef in
         userData.packetDesc.mStartOffset = 0;
         userData.packetDesc.mVariableFramesInPacket = 0;
         
-        //输出大小和packet个数
+        //输出的每个包里有多少帧
         UInt32 pcmDataPacketSize = 1024;
         // - 数据包数量*每个数据包中字节数*声道数.
         UInt32 pcmBufferSize = (UInt32)(pcmDataPacketSize * (_config.sampleSize / 8) * _config.channelCount);

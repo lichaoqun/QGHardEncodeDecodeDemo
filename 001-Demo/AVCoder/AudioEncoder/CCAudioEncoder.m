@@ -122,7 +122,7 @@ static OSStatus aacEncodeInputDataProc(AudioConverterRef inAudioConverter, UInt3
         outAudioBufferList.mBuffers[0].mDataByteSize = (UInt32)_pcmBufferSize;
         outAudioBufferList.mBuffers[0].mData = pcmBuffer;
         
-        //输出包大小为1
+        //输出每次输出一个包
         UInt32 outputDataPacketSize = 1;
         
         //配置填充函数，获取输出数据
@@ -182,7 +182,7 @@ static OSStatus aacEncodeInputDataProc(AudioConverterRef inAudioConverter, UInt3
     outputAudioDes.mFormatID = kAudioFormatMPEG4AAC;                //输出格式
     outputAudioDes.mFormatFlags = kMPEG4Object_AAC_LC;              // 如果设为0 代表无损编码
     outputAudioDes.mBytesPerPacket = 0;                             //自己确定每个packet 大小
-    outputAudioDes.mFramesPerPacket = 1024;                         //每一个packet帧数 AAC-1024；
+    outputAudioDes.mFramesPerPacket = 1024;                         //每一个packet中的帧数量 AAC-1024；这个字段通常是写死的
     outputAudioDes.mBytesPerFrame = 0;                              //每一帧大小
     outputAudioDes.mChannelsPerFrame = (uint32_t)_config.channelCount; //输出声道数
     outputAudioDes.mBitsPerChannel = 0;                             //数据帧中每个通道的采样位数。
